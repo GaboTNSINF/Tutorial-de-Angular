@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,34 +9,52 @@ import { RouterLink } from '@angular/router';
   styleUrl: './juego-numeros.css'
 })
 export class JuegoNumeros {
-  numeroActual: number = 0;
-  haGanado: boolean = false;
-  mensaje: string = 'Presiona el botón';
-  intentos: number = 0;
+  // --- Estado con Signals ---
+  numeroActual = signal(0);
+  mensaje = signal('Presiona el botón');
+  intentos = signal(0);
+  haGanado = signal(false);
 
+  // --- Derivado/computed (se actualiza solo) ---
+  estadoJuego = computed(() => {
+    if (this.haGanado()) return '🎉 ¡GANASTE!';
+    if (this.intentos() === 0) return '🎮 ¡Listo para jugar!';
+    return `🎯 Intento ${this.intentos()}`;
+  });
+
+  // (Opcional) logging simple para ver la reactividad en acción
+  constructor() {
+    effect(() => {
+      console.log('[Juego]', {
+        numero: this.numeroActual(),
+        intentos: this.intentos(),
+        gano: this.haGanado()
+      });
+    });
+  }
+
+  // --- Lógica del juego ---
   generarNumero() {
-    // 1..10 según la fórmula que pide la actividad
-    const numero = Math.floor(Math.random() * 10) + 1;
-    this.numeroActual = numero;
-    this.intentos++;
+    const n = Math.floor(Math.random() * 10) + 1; // 1..10
+    this.numeroActual.set(n);
+    this.intentos.update(i => i + 1);
 
-    if (numero === 7) {
-      this.mensaje = '🎉 ¡GANASTE! 🎉';
-      this.haGanado = true;
-    } else if (numero >= 8) {
-      this.mensaje = '📈 ¡Muy alto! Sigue intentando';
-      this.haGanado = false;
+    if (n === 7) {
+      this.mensaje.set('🎉 ¡INCREÍBLE! ¡Obtuviste el 7! 🎉');
+      this.haGanado.set(true);
+    } else if (n >= 8) {
+      this.mensaje.set('📈 ¡Muy alto! Sigue intentando');
+      this.haGanado.set(false);
     } else {
-      this.mensaje = '📉 ¡Muy bajo! Sigue intentando';
-      this.haGanado = false;
+      this.mensaje.set('📉 ¡Muy bajo! Sigue intentando');
+      this.haGanado.set(false);
     }
   }
 
-  // (Desafío fácil sugerido en la guía) Reiniciar juego
-  reiniciar() {
-    this.numeroActual = 0;
-    this.mensaje = 'Presiona el botón';
-    this.haGanado = false;
-    this.intentos = 0;
+  reiniciarJuego() {
+    this.numeroActual.set(0);
+    this.mensaje.set('Presiona el botón');
+    this.intentos.set(0);
+    this.haGanado.set(false);
   }
 }
