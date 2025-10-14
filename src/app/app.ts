@@ -1,11 +1,12 @@
 import { Component, signal, computed } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { ContadorComponent } from './contador/contador';
 import { ContadorSignalsComponent } from './contador-signals/contador-signals';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ContadorComponent, ContadorSignalsComponent],
+  imports: [RouterOutlet, RouterLink, ContadorComponent, ContadorSignalsComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -14,13 +15,16 @@ export class App {
   mensaje = signal('Mi primera aplicación Angular');
   contador = signal(0);
   totalClicks = signal(0);
-  
-    cambiarMensaje() {
-    this.mensaje.set(this.mensaje() === 'Mi primera aplicación Angular' 
-      ? '¡Angular 20 es genial!' 
-      : 'Mi primera aplicación Angular');
+
+  cambiarMensaje() {
+    this.mensaje.set(
+      this.mensaje() === 'Mi primera aplicación Angular'
+        ? '¡Angular 20 es genial!'
+        : 'Mi primera aplicación Angular'
+    );
     this.contador.update(c => c + 1);
   }
+
   // Computed signal para estadísticas
   estadisticas = computed(() => {
     const clicks = this.totalClicks();
@@ -30,7 +34,7 @@ export class App {
     if (clicks < 50) return 'Progresando...';
     return '¡Dominando Angular!';
   });
-  
+
   onContadorCambio(nuevoValor: number) {
     this.totalClicks.update(c => c + 1);
     console.log('Contador cambió a:', nuevoValor);

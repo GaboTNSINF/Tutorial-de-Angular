@@ -1,3 +1,9 @@
+<nav class="top-nav" style="display:flex;gap:12px;justify-content:center;margin:16px 0;">
+  <!-- Enlaces de navegación -->
+  <a routerLink="/home">Inicio</a>
+  <a routerLink="/juego-numeros">Juego de Números</a>
+</nav>
+
 <div class="container">
   <header>
     <h1>{{ title() }}</h1>
@@ -96,6 +102,11 @@ cambioValor = output&lt;number&gt;();</code></pre>
       </div>
     </div>
   </main>
+
+  <!-- Aquí se renderizan las páginas de routing -->
+  <section class="ruta" style="margin:24px 0;">
+    <router-outlet></router-outlet>
+  </section>
   
   <footer>
     <p>Desarrollado con ❤️ usando Angular 20 y Signals</p>
