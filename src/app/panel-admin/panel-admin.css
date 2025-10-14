@@ -1,0 +1,2 @@
+@keyframes fadeIn { from { opacity:0; transform: scale(.98);} to { opacity:1; transform:scale(1);} }
+.admin-panel { animation: fadeIn .4s ease-out; }

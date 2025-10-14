@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="card shadow-lg border-0 rounded-4 admin-panel">
+    <div class="card-header bg-transparent border-bottom pb-3 d-flex justify-content-between align-items-center">
+      <h2 class="h4 m-0">Panel de Administración — {{ user() || 'Invitado' }}</h2>
+      <button class="btn btn-danger rounded-pill" (click)="logout()">🚪 Cerrar sesión</button>
+    </div>
+
+    <div class="card-body">
+      <p class="text-muted">Bienvenido al panel, aquí van tus acciones frecuentes.</p>
+
+      <div class="d-flex gap-3 flex-wrap mb-3">
+        <app-boton-personalizado
+          texto="📊 Generar Reporte"
+          variante="primary"
+          (click)="performAction('Generar Reporte')">
+        </app-boton-personalizado>
+
+        <app-boton-personalizado
+          texto="📧 Enviar Resumen"
+          variante="secondary"
+          (click)="performAction('Enviar Resumen')">
+        </app-boton-personalizado>
+      </div>
+
+      @if (notifications > 0) {
+        <div class="alert alert-warning">
+          🔔 Tienes {{ notifications }} notificaciones.
+        </div>
+      }
+
+      <a routerLink="/home" class="btn btn-outline-secondary rounded-pill">← Volver al inicio</a>
+    </div>
+  </div>
+</div>

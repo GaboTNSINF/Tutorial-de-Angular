@@ -1,12 +1,12 @@
 import { Component, signal, computed } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ContadorComponent } from './contador/contador';
 import { ContadorSignalsComponent } from './contador-signals/contador-signals';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, ContadorComponent, ContadorSignalsComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, ContadorComponent, ContadorSignalsComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

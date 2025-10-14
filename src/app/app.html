@@ -1,7 +1,9 @@
-<nav class="top-nav" style="display:flex;gap:12px;justify-content:center;margin:16px 0;">
+<nav class="top-nav" style="display:flex;gap:12px;justify-content:center;margin:16px 0;flex-wrap:wrap;">
   <!-- Enlaces de navegación -->
-  <a routerLink="/home">Inicio</a>
-  <a routerLink="/juego-numeros">Juego de Números</a>
+  <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+  <a routerLink="/juego-numeros" routerLinkActive="active">Juego de Números</a>
+  <a routerLink="/login" routerLinkActive="active">Login</a>
+  <a routerLink="/admin" routerLinkActive="active">Admin</a>
 </nav>
 
 <div class="container">
